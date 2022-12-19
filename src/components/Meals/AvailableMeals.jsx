@@ -32,6 +32,7 @@ import { useEffect, useState } from "react";
 
 const AvailableMeals = () => {
   const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
 
   const getMeals = async () => {
     try {
@@ -60,7 +61,9 @@ const AvailableMeals = () => {
         });
       }
       setData(loadedData);
-    } catch (error) {}
+    } catch (error) {
+      setError(error);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +83,8 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        <ul>{mealsList}</ul>
+        <p>{error}</p>
+        {error == null && <ul>{mealsList}</ul>}
       </Card>
     </section>
   );
